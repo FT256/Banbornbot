@@ -1,0 +1,13 @@
+token = ""
+
+chat_id=[
+
+]
+
+channel_whitelist=[
+
+]
+
+call_admin_command=""
+
+call_admin_message=""
