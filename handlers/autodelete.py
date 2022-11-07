@@ -1,6 +1,7 @@
+import config
 from aiogram import types
 
-import config
+from captcha import send_welcome
 from dispatcher import dp, bot
 
 
@@ -14,6 +15,7 @@ async def send_welcome(message: types.Message):
             await bot.leave_chat(chat_id=message.chat.id)
         else:
             await message.delete()
+            send_welcome(message)
 
 
 @dp.message_handler(content_types=["voice"])
