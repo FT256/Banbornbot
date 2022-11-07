@@ -10,14 +10,14 @@ async def cmd_ban(message: types.Message):
         return
 
     user = await message.bot.get_chat_member(message.chat.id,
-                                             message.reply_to_message.from_user.id
-                                             )
-    if user.is_chat_admin():
-        await message.reply("Нельзя изменять права администраторов")
-        return
+                                             message.reply_to_message.from_user.id)
 
     if message.reply_to_message.from_user.id == message.from_user.id:
         await message.reply("Нельзя забанить самого себя =)")
+        return
+
+    if user.is_chat_admin():
+        await message.reply("Нельзя изменять права администраторов")
         return
 
     user = message.reply_to_message.from_user
