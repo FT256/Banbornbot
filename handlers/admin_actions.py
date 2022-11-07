@@ -1,3 +1,5 @@
+from time import time
+
 from aiogram import types
 from dispatcher import dp, bot
 
