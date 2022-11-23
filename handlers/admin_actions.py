@@ -140,3 +140,14 @@ async def cmd_unreadonly(message: types.Message):
     else:
         await message.answer(f"Пользователь {user.first_name} (@{user.username}) размучен")
     await message.bot.delete_message(message.chat.id, message.message_id)  # remove admin message
+
+@dp.message_handler(is_admin=True, commands=['id'], commands_prefix="!/")
+async def cmd_get_userid(message: types.Message):
+    if not message.reply_to_message:
+        await message.reply("Эта команда должна быть ответом на сообщение")
+        return
+
+    await message.reply(message.reply_to_message.from_user.id)
+        
+    await message.bot.delete_message(message.chat.id, message.message_id)  # remove admin message
+    
