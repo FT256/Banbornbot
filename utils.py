@@ -1,4 +1,5 @@
 import typing
+import random as rnd
 
 
 def get_restriction_time(string: str) -> typing.Optional[int]:
@@ -9,6 +10,8 @@ def get_restriction_time(string: str) -> typing.Optional[int]:
         "m" for minutes, "h" for hours and "d" for days
     :return: number of seconds to restrict or None if error
     """
+    if string = "lucky": # randomised mute time 1-666 minutes
+        string = str(rnd.randint(1, 666)) + "m"
     if len(string) < 2:
         return None
     letter = string[-1]
