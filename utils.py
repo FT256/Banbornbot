@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import typing
 import random as rnd
 
