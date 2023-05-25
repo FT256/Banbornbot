@@ -94,11 +94,11 @@ async def cmd_readonly(message: types.Message):
     if len(words) > 1:
         if user.last_name is not None:
             await message.answer(f"Пользователю {user.first_name} {user.last_name} (@{user.username}) выдан мут на " + (
-                "({restriction_time})").format(restriction_time=words[1])
+                "({restriction_time})").format(restriction_time=restriction_time_to_human_readable(restriction_time))
                                  )
         else:
             await message.answer(f"Пользователю {user.first_name} (@{user.username}) выдан мут на " + (
-                "({restriction_time})").format(restriction_time=words[1])
+                "({restriction_time})").format(restriction_time=restriction_time_to_human_readable(restriction_time))
                                  )
     else:
         if user.last_name is not None:
