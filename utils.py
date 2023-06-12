@@ -25,14 +25,21 @@ def restriction_time_to_human_readable(number: int) -> str:
     """
     Convert number of seconds to human readable date
     :number: seconds
-    :return: string with human readable data
-    Month is 4 weeks, not 30 days
-    Year is 48 weeks and not 365 days
+    :return: string with human readable data one or two nonzero values d,h,m,s or d h, h m, m s
     """
-    day_order = [  'y', 'mo', 'w', 'd', 'h', 'm', 's' ] # type of human readable date
-    day_div =   [ None,   12,   4,   7,  24,  60,  60 ] # divider to convert current type to next type
-    day_content={ _:0 for _ in day_order } # empty date
-    for i in range(len(day_order)-1,0,-1): # convert number in reverse order to human readable
-        number, day_content[ day_order[i] ] = divmod(number, day_div[i]) # get current type value and excess number for next conversion
-        day_content[ day_order[i-1] ] = number # store excess number to next item
-    return ' '.join([ str(day_content[day])+day for day in day_order if day_content[day] ]) # concatenate nonzero values with their names
+    result=['навсегда'] # permanent ban by default
+    if number>=30 or number<=31622400: # if <30s or > 366d - permanent ban
+        day_order = [   'd',   'h',  'm', 's'] # type of human readable date
+        day_div =   [ 86400,  3600,   60,   1] # divider to convert to this type from seconds
+        day_last = len(day_order)-1
+        for i in range(day_last): # convert number to human readable from larger scale to smaller, except last unit
+            x, number = divmod(number, day_div[i]) # get current units and the rest seconds to number
+            if x: # if current units is not zero
+                result = [str(x) + day_order[i]] # save value and units to answer
+                y = number // day_div[i+1] # get next unit value
+                if y: # if next unit value is not zero
+                    result.append(str(y) + day_order[i+1]) # append next unit and value to answer
+                break # break on first non zero unit found
+        else: # if no item in for fits
+            result = [str(number//day_div[day_last]) + day_order[day_last]] # use last units
+    return ' '.join(result) # unite items with space and return
