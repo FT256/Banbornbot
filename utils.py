@@ -28,7 +28,7 @@ def restriction_time_to_human_readable(number: int) -> str:
     :return: string with human readable data one or two nonzero values d,h,m,s or d h, h m, m s
     """
     result=['навсегда'] # permanent ban by default
-    if number>=30 or number<=31622400: # if <30s or > 366d - permanent ban
+    if number>=30 and number<=31622400: # if <30s or > 366d - permanent ban
         day_order = [   'd',   'h',  'm', 's'] # type of human readable date
         day_div =   [ 86400,  3600,   60,   1] # divider to convert to this type from seconds
         day_last = len(day_order)-1
